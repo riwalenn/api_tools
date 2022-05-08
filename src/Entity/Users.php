@@ -7,10 +7,13 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ApiResource(
     collectionOperations: ['get', 'post'],
@@ -29,34 +32,47 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(name: 'nom', type: 'string', length: 255, nullable: false)]
+    #[NotBlank]
     private string $nom;
 
     #[ORM\Column(name: 'prenom', type: 'string', length: 255, nullable: false)]
     private string $prenom;
 
     #[ORM\Column(name: 'username', type: 'string', length: 255, nullable: false)]
+    #[NotBlank]
     private string $username;
 
     #[ORM\Column(name: 'email', type: 'string', length: 255, nullable: false)]
+    #[NotBlank]
     private string $email;
 
     #[ORM\Column(name: 'password', type: 'string', length: 255, nullable: false)]
+    #[NotBlank]
     private string $password;
 
     #[ORM\Column(name: 'token', type: 'string', length: 255, nullable: true)]
+    #[NotBlank]
     private string $token;
 
     #[ORM\Column(name: 'is_active', type: 'boolean', nullable: false)]
+    #[NotBlank]
     private bool $isActive;
 
     #[ORM\Column(name: 'roles', type: 'array', length: 255, nullable: false)]
+    #[NotBlank]
     private array $roles;
 
     #[ORM\ManyToMany(targetEntity: Categories::class)]
+    #[ORM\JoinTable(name: 'users_categories')]
     private Collection $Category;
 
     #[ORM\OneToMany(mappedBy: FavoriteTools::class, targetEntity: FavoriteTools::class)]
     private FavoriteTools $favoriteTools;
+
+    #[Pure] public function __construct()
+    {
+        $this->category = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {

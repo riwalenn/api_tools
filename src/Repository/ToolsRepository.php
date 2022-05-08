@@ -2,10 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\Categories;
 use App\Entity\Tools;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -47,28 +49,14 @@ class ToolsRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Tools[] Returns an array of Tools objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Tools
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getTools(int $page): array
+    {
+        $qb = $this->_em->createQueryBuilder();
+        return $qb->select('t')
+            ->from(Tools::class, 't')
+            ->where('t.isActive = true')
+            ->setMaxResults(20)
+            ->setFirstResult(($page - 1) * 20)
+            ->orderBy('t.id', 'ASC')->getQuery()->getResult();
+    }
 }

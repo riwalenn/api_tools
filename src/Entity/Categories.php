@@ -8,6 +8,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\CategoriesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ApiResource(
     collectionOperations: ['get', 'post'],
@@ -24,12 +26,16 @@ class Categories
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['item'])]
     private $id;
 
     #[ORM\Column(name: 'nom', type: 'string', length: 255, nullable: false)]
+    #[NotBlank]
+    #[Groups(['item'])]
     private ?string $nom;
 
     #[ORM\Column(name: 'is_active', type: 'boolean', nullable: false)]
+    #[NotBlank]
     private ?bool $isActive;
 
     public function getId(): ?int

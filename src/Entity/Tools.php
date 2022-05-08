@@ -8,10 +8,18 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\ToolsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ApiResource(
-    collectionOperations: ['get', 'post'],
-    itemOperations: ['get', 'put', 'patch']
+    collectionOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['collection', 'item']]
+        ],
+        'post'
+    ],
+    itemOperations: ['get', 'put', 'patch'],
+    attributes: ["pagination_enabled" => false]
 )]
 #[ApiFilter(SearchFilter::class, properties: [
     'nom' => SearchFilter::STRATEGY_PARTIAL,
@@ -24,24 +32,34 @@ class Tools
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['collection'])]
     private $id;
 
     #[ORM\Column(name: 'nom', type: 'string', length: 255, nullable: false)]
+    #[NotBlank]
+    #[Groups(['collection'])]
     private string $nom;
 
     #[ORM\Column(name: 'description', type: 'string', length: 255, nullable: true)]
+    #[Groups(['collection'])]
     private string $description;
 
     #[ORM\Column(name: 'link', type: 'string', length: 255, nullable: false)]
+    #[NotBlank]
+    #[Groups(['collection'])]
     private string $link;
 
     #[ORM\Column(name: 'created_at', type: 'datetime_immutable', nullable: false)]
+    #[NotBlank]
     private \DateTimeImmutable $createdAt;
 
     #[ORM\Column(name: 'is_active', type: 'boolean', nullable: false)]
+    #[NotBlank]
     private bool $isActive;
 
     #[ORM\ManyToOne(targetEntity: Categories::class)]
+    #[NotBlank]
+    #[Groups(['collection'])]
     private Categories $Category;
 
     public function getId(): ?int

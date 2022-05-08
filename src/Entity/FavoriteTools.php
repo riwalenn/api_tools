@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\FavoriteToolsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ApiResource(
     itemOperations: ['get', 'put', 'delete', 'patch']
@@ -18,24 +19,32 @@ class FavoriteTools
     private $id;
 
     #[ORM\ManyToOne(targetEntity: Users::class)]
+    #[NotBlank]
     private Users $Users;
 
     #[ORM\ManyToOne(targetEntity: Categories::class)]
+    #[NotBlank]
     private Categories $Category;
 
     #[ORM\Column(name: 'is_broken', type: 'boolean', nullable: false)]
+    #[NotBlank]
     private bool $isBroken;
 
     #[ORM\Column(name: 'is_liked', type: 'boolean', nullable: false)]
+    #[NotBlank]
+    #[NotBlank]
     private bool $isLiked;
 
     #[ORM\Column(name: 'is_unliked', type: 'boolean', nullable: false)]
+    #[NotBlank]
     private bool $isUnliked;
 
     #[ORM\Column(name: 'is_favorite', type: 'boolean', nullable: false)]
+    #[NotBlank]
     private bool $isFavorite;
 
     #[ORM\Column(name: 'is_active', type: 'boolean', nullable: false)]
+    #[NotBlank]
     private bool $isActive;
 
     #[ORM\Column(name: 'tags', type: 'string', length: 255, nullable: true)]
