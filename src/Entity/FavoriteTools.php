@@ -2,14 +2,10 @@
 
 namespace App\Entity;
 
+use App\Repository\FavoriteToolsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * FavoriteTools
- *
- * @ORM\Table(name="favorite_tools")
- * @ORM\Entity(repositoryClass="App\Repository\FavoriteToolsRepository")
- */
+#[ORM\Entity(repositoryClass: FavoriteToolsRepository::class)]
 class FavoriteTools
 {
     #[ORM\Id]

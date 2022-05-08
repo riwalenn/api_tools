@@ -2,14 +2,10 @@
 
 namespace App\Entity;
 
+use App\Repository\ToolsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Tools
- *
- * @ORM\Table(name="tools")})
- * @ORM\Entity(repositoryClass="App\Repository\ToolsRepository")
- */
+#[ORM\Entity(repositoryClass: ToolsRepository::class)]
 class Tools
 {
     #[ORM\Id]
