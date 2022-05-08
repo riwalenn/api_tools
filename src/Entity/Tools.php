@@ -12,48 +12,33 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Tools
 {
-    /**
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
-    private ?string $nom;
+    #[ORM\Column(name: 'nom', type: 'string', length: 255, nullable: false)]
+    private string $nom;
 
-    /**
-     * @ORM\Column(name="description", type="string", length=255, nullable=true)
-     */
-    private ?string $description;
+    #[ORM\Column(name: 'description', type: 'string', length: 255, nullable: true)]
+    private string $description;
 
-    /**
-     * @ORM\Column(name="link", type="string", length=255, nullable=false)
-     */
-    private ?string $link;
+    #[ORM\Column(name: 'link', type: 'string', length: 255, nullable: false)]
+    private string $link;
 
-    /**
-     * @ORM\Column(name="created_at", type="datetime_immutable", nullable=false)
-     */
-    private ?\DateTimeImmutable $createdAt;
+    #[ORM\Column(name: 'created_at', type: 'datetime_immutable', nullable: false)]
+    private \DateTimeImmutable $createdAt;
 
-    /**
-     * @ORM\Column(name="is_active", type="boolean", nullable=false)
-     */
-    private ?bool $isActive;
+    #[ORM\Column(name: 'is_active', type: 'boolean', nullable: false)]
+    private bool $isActive;
+
+    #[ORM\ManyToOne(targetEntity: Categories::class)]
+    private Categories $Category;
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Categories::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ?Categories $Category;
 
     public function getNom(): ?string
     {

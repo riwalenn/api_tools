@@ -2,31 +2,21 @@
 
 namespace App\Entity;
 
+use App\Repository\CategoriesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Categories
- *
- * @ORM\Table(name="categories")
- * @ORM\Entity(repositoryClass="App\Repository\CategoriesRepository")
- */
+#[ORM\Entity(repositoryClass: CategoriesRepository::class)]
 class Categories
 {
-    /**
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(name: 'nom', type: 'string', length: 255, nullable: false)]
     private ?string $nom;
 
-    /**
-     * @ORM\Column(name="is_active", type="boolean", nullable=false)
-     */
+    #[ORM\Column(name: 'is_active', type: 'boolean', nullable: false)]
     private ?bool $isActive;
 
     public function getId(): ?int

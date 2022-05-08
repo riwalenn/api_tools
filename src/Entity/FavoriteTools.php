@@ -12,58 +12,36 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class FavoriteTools
 {
-    /**
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(name="is_broken", type="boolean", nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Users::class)]
+    private Users $Users;
+
+    #[ORM\ManyToOne(targetEntity: Categories::class)]
+    private Categories $Category;
+
+    #[ORM\Column(name: 'is_broken', type: 'boolean', nullable: false)]
     private bool $isBroken;
 
-    /**
-     * @ORM\Column(name="is_liked", type="boolean", nullable=false)
-     */
+    #[ORM\Column(name: 'is_liked', type: 'boolean', nullable: false)]
     private bool $isLiked;
 
-    /**
-     * @ORM\Column(name="is_unliked", type="boolean", nullable=false)
-     */
+    #[ORM\Column(name: 'is_unliked', type: 'boolean', nullable: false)]
     private bool $isUnliked;
 
-    /**
-     * @ORM\Column(name="is_favorite", type="boolean", nullable=false)
-     */
+    #[ORM\Column(name: 'is_favorite', type: 'boolean', nullable: false)]
     private bool $isFavorite;
 
-    /**
-     * @ORM\Column(name="is_active", type="boolean", nullable=false)
-     */
+    #[ORM\Column(name: 'is_active', type: 'boolean', nullable: false)]
     private bool $isActive;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Categories::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ?Categories $Category;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="favoriteTools")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ?Users $Users;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(name: 'tags', type: 'string', length: 255, nullable: true)]
     private ?string $tags;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(name: 'note', type: 'string', length: 255, nullable: true)]
     private ?string $note;
 
     public function getId(): ?int

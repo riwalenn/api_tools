@@ -17,70 +17,40 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
-    private ?string $nom;
+    #[ORM\Column(name: 'nom', type: 'string', length: 255, nullable: false)]
+    private string $nom;
 
-    /**
-     * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
-     */
-    private ?string $prenom;
+    #[ORM\Column(name: 'prenom', type: 'string', length: 255, nullable: false)]
+    private string $prenom;
 
-    /**
-     * @ORM\Column(name="username", type="string", length=255, nullable=false)
-     */
-    private ?string $username;
+    #[ORM\Column(name: 'username', type: 'string', length: 255, nullable: false)]
+    private string $username;
 
-    /**
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
-     */
-    private ?string $email;
+    #[ORM\Column(name: 'email', type: 'string', length: 255, nullable: false)]
+    private string $email;
 
-    /**
-     * @ORM\Column(name="password", type="string", length=255, nullable=false)
-     */
-    private ?string $password;
+    #[ORM\Column(name: 'password', type: 'string', length: 255, nullable: false)]
+    private string $password;
 
-    /**
-     * @ORM\Column(name="token", type="string", length=255, nullable=true)
-     */
-    private ?string $token;
+    #[ORM\Column(name: 'token', type: 'string', length: 255, nullable: true)]
+    private string $token;
 
-    /**
-     * @ORM\Column(name="is_active", type="boolean", nullable=false)
-     */
-    private ?bool $isActive;
+    #[ORM\Column(name: 'is_active', type: 'boolean', nullable: false)]
+    private bool $isActive;
 
-    /**
-     * @ORM\Column(name="roles", type="string", length=255, nullable=false)
-     */
-    private ?array $roles;
+    #[ORM\Column(name: 'roles', type: 'array', length: 255, nullable: false)]
+    private array $roles;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Categories::class)
-     */
-    private ArrayCollection $Category;
+    #[ORM\ManyToMany(targetEntity: Categories::class)]
+    private Collection $Category;
 
-    /**
-     * @ORM\OneToMany(targetEntity=FavoriteTools::class, mappedBy="Users", orphanRemoval=true)
-     */
-    private $favoriteTools;
-
-    #[Pure] public function __construct()
-    {
-        $this->Category = new ArrayCollection();
-        $this->favoriteTools = new ArrayCollection();
-    }
+    #[ORM\OneToMany(targetEntity: FavoriteTools::class)]
+    private FavoriteTools $favoriteTools;
 
     public function getId(): ?int
     {
