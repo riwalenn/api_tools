@@ -9,14 +9,14 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Users>
+ * @extends ServiceEntityRepository<UsersRepository>
  *
  * @method Users|null find($id, $lockMode = null, $lockVersion = null)
  * @method Users|null findOneBy(array $criteria, array $orderBy = null)
  * @method Users[]    findAll()
  * @method Users[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class Users extends ServiceEntityRepository
+class UsersRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -48,7 +48,7 @@ class Users extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Users[] Returns an array of Users objects
+//     * @return Users[] Returns an array of UsersRepository objects
 //     */
 //    public function findByExampleField($value): array
 //    {

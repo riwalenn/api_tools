@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-#[ORM\Entity(repositoryClass: \App\Repository\Users::class)]
+#[ApiResource]
+#[ORM\Entity(repositoryClass: UsersRepository::class)]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -42,7 +45,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Categories::class)]
     private Collection $Category;
 
-    #[ORM\OneToMany(targetEntity: FavoriteTools::class)]
+    #[ORM\OneToMany(mappedBy: FavoriteTools::class, targetEntity: FavoriteTools::class)]
     private FavoriteTools $favoriteTools;
 
     public function getId(): ?int
