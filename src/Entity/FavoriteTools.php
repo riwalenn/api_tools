@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * FavoriteTools
  *
  * @ORM\Table(name="favorite_tools")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\FavoriteToolsRepository")
  */
 class FavoriteTools
 {

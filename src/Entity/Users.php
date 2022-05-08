@@ -12,8 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Users
  *
- * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_1483A5E95F37A13B", columns={"token"}), @ORM\UniqueConstraint(name="UNIQ_1483A5E9F85E0677", columns={"username"})})
- * @ORM\Entity
+ * @ORM\Table(name="users")
+ * @ORM\Entity(repositoryClass="App\Repository\Users")
  */
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {

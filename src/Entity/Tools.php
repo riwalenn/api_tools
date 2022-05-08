@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Tools
  *
  * @ORM\Table(name="tools")})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ToolsRepository")
  */
 class Tools
 {
@@ -43,6 +43,11 @@ class Tools
      * @ORM\Column(name="is_active", type="boolean", nullable=false)
      */
     private ?bool $isActive;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity=Categories::class)
