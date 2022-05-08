@@ -2,11 +2,22 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\CategoriesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource]
+#[ApiResource(
+    collectionOperations: ['get', 'post'],
+    itemOperations: ['get', 'put', 'patch'],
+    attributes: ["pagination_enabled" => false]
+)]
+#[ApiFilter(SearchFilter::class, properties: [
+    'nom' => SearchFilter::STRATEGY_PARTIAL
+])]
+#[ApiFilter(OrderFilter::class, properties: ['id'], arguments: ['orderParameterName' => 'order'])]
 #[ORM\Entity(repositoryClass: CategoriesRepository::class)]
 class Categories
 {

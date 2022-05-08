@@ -6,7 +6,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\FavoriteToolsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource]
+#[ApiResource(
+    itemOperations: ['get', 'put', 'delete', 'patch']
+)]
 #[ORM\Entity(repositoryClass: FavoriteToolsRepository::class)]
 class FavoriteTools
 {

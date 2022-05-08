@@ -2,11 +2,22 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\ToolsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource]
+#[ApiResource(
+    collectionOperations: ['get', 'post'],
+    itemOperations: ['get', 'put', 'patch']
+)]
+#[ApiFilter(SearchFilter::class, properties: [
+    'nom' => SearchFilter::STRATEGY_PARTIAL,
+    'link' => SearchFilter::STRATEGY_PARTIAL,
+])]
+#[ApiFilter(OrderFilter::class, properties: ['nom'], arguments: ['orderParameterName' => 'order'])]
 #[ORM\Entity(repositoryClass: ToolsRepository::class)]
 class Tools
 {
