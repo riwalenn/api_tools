@@ -43,16 +43,16 @@ class CategoryTest extends ApiTestCase
         $this->assertEquals($this->getEntity()->getNom(), $this->categories->getNom());
     }
 
-    public function testTypeStringNom(): void
-    {
-        $this->assertIsString($this->getEntity()->getNom());
-        $this->assertNotEmpty($this->getEntity()->getNom());
-    }
-
     public function testGetisActive(): void
     {
         $response = $this->categories->setIsActive($this->getEntity()->getIsActive());
         $this->assertEquals($this->getEntity()->getIsActive(), $this->categories->getIsActive());
+    }
+
+    public function testTypeStringNom(): void
+    {
+        $this->assertIsString($this->getEntity()->getNom());
+        $this->assertNotEmpty($this->getEntity()->getNom());
     }
 
     public function testTypeBooleanIsActive(): void
