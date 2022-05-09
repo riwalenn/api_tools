@@ -16,9 +16,13 @@ use Symfony\Component\Validator\Constraints\NotBlank;
         'get' => [
             'normalization_context' => ['groups' => ['collection', 'item']]
         ],
-        'post'
+        'post' => [
+            'denormalization_context' => ['groups' => ['write']]
+        ],
     ],
-    itemOperations: ['get', 'put', 'patch'],
+    itemOperations: ['get' => [
+        'normalization_context' => ['groups' => ['item']]
+    ], 'put', 'patch'],
     attributes: ["pagination_enabled" => false]
 )]
 #[ApiFilter(SearchFilter::class, properties: [
@@ -37,29 +41,31 @@ class Tools
 
     #[ORM\Column(name: 'nom', type: 'string', length: 255, nullable: false)]
     #[NotBlank]
-    #[Groups(['collection'])]
+    #[Groups(['collection', 'write'])]
     private string $nom;
 
     #[ORM\Column(name: 'description', type: 'string', length: 255, nullable: true)]
-    #[Groups(['collection'])]
+    #[Groups(['collection', 'write'])]
     private string $description;
 
     #[ORM\Column(name: 'link', type: 'string', length: 255, nullable: false)]
     #[NotBlank]
-    #[Groups(['collection'])]
+    #[Groups(['collection', 'write'])]
     private string $link;
 
     #[ORM\Column(name: 'created_at', type: 'datetime_immutable', nullable: false)]
     #[NotBlank]
+    #[Groups(['write'])]
     private \DateTimeImmutable $createdAt;
 
     #[ORM\Column(name: 'is_active', type: 'boolean', nullable: false)]
     #[NotBlank]
+    #[Groups(['write'])]
     private bool $isActive;
 
     #[ORM\ManyToOne(targetEntity: Categories::class)]
     #[NotBlank]
-    #[Groups(['collection'])]
+    #[Groups(['collection', 'write'])]
     private Categories $Category;
 
     public function getId(): ?int

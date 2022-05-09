@@ -47,28 +47,12 @@ class CategoriesRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Categories[] Returns an array of Categories objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Categories
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getRandomCategory()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('RAND()')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+    }
 }
