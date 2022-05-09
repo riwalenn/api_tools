@@ -46,13 +46,4 @@ class CategoriesRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
-
-    public function getRandomCategory()
-    {
-        return $this->createQueryBuilder('c')
-            ->orderBy('RAND()')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getResult();
-    }
 }

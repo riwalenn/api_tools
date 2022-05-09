@@ -6,8 +6,10 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Controller\randomTools;
 use App\Repository\ToolsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -19,6 +21,15 @@ use Symfony\Component\Validator\Constraints\NotBlank;
         'post' => [
             'denormalization_context' => ['groups' => ['write']]
         ],
+        'random' => [
+            'controller' => randomTools::class,
+            'read' => false,
+            'path' => 'tools/random',
+            'output' => Tools::class,
+            'method' => Request::METHOD_GET,
+            'pagination_enabled' => false,
+            'normalization_context' => ['groups' => ['collection']]
+        ]
     ],
     itemOperations: ['get' => [
         'normalization_context' => ['groups' => ['item']]

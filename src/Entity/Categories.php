@@ -6,10 +6,8 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use App\Controller\randomCategory;
 use App\Repository\CategoriesRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -19,15 +17,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
             'normalization_context' => ['groups' => ['item']]
         ],
         'post',
-        'random' => [
-            'controller' => randomCategory::class,
-            'read' => false,
-            'path' => 'categories/random',
-            'output' => Categories::class,
-            'method' => Request::METHOD_GET,
-            'pagination_enabled' => false,
-            'normalization_context' => ['groups' => ['item']]
-        ]
     ],
     itemOperations: [
         'get' => [

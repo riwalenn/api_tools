@@ -59,4 +59,13 @@ class ToolsRepository extends ServiceEntityRepository
             ->setFirstResult(($page - 1) * 20)
             ->orderBy('t.id', 'ASC')->getQuery()->getResult();
     }
+
+    public function getRandomTools()
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('RAND()')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
 }
