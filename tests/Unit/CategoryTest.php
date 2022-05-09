@@ -21,7 +21,7 @@ class CategoryTest extends ApiTestCase
     protected function getEntity(): Categories
     {
         return (new Categories())
-            ->setNom('test')
+            ->setNom('test nom catégorie')
             ->setIsActive(true);
     }
 
@@ -46,20 +46,20 @@ class CategoryTest extends ApiTestCase
     public function testTypeStringNom(): void
     {
         $this->assertIsString($this->getEntity()->getNom());
+        $this->assertNotEmpty($this->getEntity()->getNom());
     }
 
-    public function testGetIsActive(): void
+    public function testGetisActive(): void
     {
-        $value = true;
-
-        $response = $this->categories->setIsActive(true);
-        $this->assertInstanceOf(Categories::class, $response);
-        $this->assertIsBool($value);
+        $response = $this->categories->setIsActive($this->getEntity()->getIsActive());
+        $this->assertEquals($this->getEntity()->getIsActive(), $this->categories->getIsActive());
     }
 
     public function testTypeBooleanIsActive(): void
     {
         $this->assertIsBool($this->getEntity()->getIsActive());
+        $this->assertIsNotInt($this->getEntity()->getIsActive());
+        $this->assertIsNotString($this->getEntity()->getIsActive());
     }
 
     protected function tearDown(): void
