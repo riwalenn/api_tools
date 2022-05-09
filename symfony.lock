@@ -166,6 +166,9 @@
     "symfony/asset": {
         "version": "v5.4.7"
     },
+    "symfony/browser-kit": {
+        "version": "v5.4.3"
+    },
     "symfony/cache": {
         "version": "v5.4.8"
     },
@@ -195,6 +198,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v5.4.8"
+    },
+    "symfony/dom-crawler": {
+        "version": "v5.4.6"
     },
     "symfony/dotenv": {
         "version": "v5.4.5"
@@ -247,6 +253,12 @@
             "./src/Controller/.gitignore",
             "./src/Kernel.php"
         ]
+    },
+    "symfony/http-client": {
+        "version": "v5.4.8"
+    },
+    "symfony/http-client-contracts": {
+        "version": "v2.5.1"
     },
     "symfony/http-foundation": {
         "version": "v5.4.8"
