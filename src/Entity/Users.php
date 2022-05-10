@@ -13,14 +13,27 @@ use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ApiResource(
-    collectionOperations: ['get', 'post'],
-    itemOperations: ['get', 'put', 'patch', 'delete']
+    collectionOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['item']]
+        ],
+        'post',
+    ],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['item']]
+        ],
+        'put',
+        'patch'
+    ],
+    attributes: ["pagination_enabled" => false]
 )]
 #[ApiFilter(SearchFilter::class, properties: [
-    'nom' => SearchFilter::STRATEGY_PARTIAL,
+    'nom' => SearchFilter::STRATEGY_PARTIAL
 ])]
 #[ApiFilter(OrderFilter::class, properties: ['id'], arguments: ['orderParameterName' => 'order'])]
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
@@ -29,21 +42,26 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['item'])]
     private $id;
 
     #[ORM\Column(name: 'nom', type: 'string', length: 255, nullable: false)]
     #[NotBlank]
+    #[Groups(['item'])]
     private string $nom;
 
     #[ORM\Column(name: 'prenom', type: 'string', length: 255, nullable: false)]
+    #[Groups(['users'])]
     private string $prenom;
 
     #[ORM\Column(name: 'username', type: 'string', length: 255, nullable: false)]
     #[NotBlank]
+    #[Groups(['item'])]
     private string $username;
 
     #[ORM\Column(name: 'email', type: 'string', length: 255, nullable: false)]
     #[NotBlank]
+    #[Groups(['item'])]
     private string $email;
 
     #[ORM\Column(name: 'password', type: 'string', length: 255, nullable: false)]
@@ -163,11 +181,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
-
     public function eraseCredentials()
     {
 
@@ -217,33 +230,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, FavoriteTools>
-     */
-    public function getFavoriteTools(): Collection
+    public function getFavoriteTools(): ?FavoriteTools
     {
         return $this->favoriteTools;
     }
 
-    public function addFavoriteTool(FavoriteTools $favoriteTool): self
+    public function setFavoriteTools(?FavoriteTools $favoriteTools): self
     {
-        if (!$this->favoriteTools->contains($favoriteTool)) {
-            $this->favoriteTools[] = $favoriteTool;
-            $favoriteTool->setUsers($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFavoriteTool(FavoriteTools $favoriteTool): self
-    {
-        if ($this->favoriteTools->removeElement($favoriteTool)) {
-            // set the owning side to null (unless already changed)
-            if ($favoriteTool->getUsers() === $this) {
-                $favoriteTool->setUsers(null);
-            }
-        }
-
+        $this->favoriteTools = $favoriteTools;
         return $this;
     }
 

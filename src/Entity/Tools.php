@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
         'get' => [
             'normalization_context' => ['groups' => ['collection', 'item']]
         ],
-        'post' => [
+        'post' => ['collection',
             'denormalization_context' => ['groups' => ['write']]
         ],
         'random' => [
@@ -28,11 +28,11 @@ use Symfony\Component\Validator\Constraints\NotBlank;
             'output' => Tools::class,
             'method' => Request::METHOD_GET,
             'pagination_enabled' => false,
-            'normalization_context' => ['groups' => ['collection']]
+            'normalization_context' => ['groups' => ['collection', 'item']]
         ]
     ],
     itemOperations: ['get' => [
-        'normalization_context' => ['groups' => ['item']]
+        'normalization_context' => ['groups' => ['collection','item']]
     ], 'put', 'patch'],
     attributes: ["pagination_enabled" => false]
 )]
