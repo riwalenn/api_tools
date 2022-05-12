@@ -1,10 +1,10 @@
 doctrine:
     dbal:
 #        url: '%env(resolve:DATABASE_URL)%'
-        dbname: api_tools
+        dbname: '%env(DATABASE_NAME)%'
         host: 127.0.0.1
         port: 3306
-        user: riwalenn
+        user: '%env(DATABASE_USER)%'
         password: '%env(DATABASE_PASSWORD)%'
         charset: utf8mb4
         server_version: '5.7'
