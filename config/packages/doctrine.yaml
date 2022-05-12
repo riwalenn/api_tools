@@ -1,6 +1,14 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
+#        url: '%env(resolve:DATABASE_URL)%'
+        dbname: api_tools
+        host: 127.0.0.1
+        port: 3306
+        user: riwalenn
+        password: '%env(DATABASE_PASSWORD)%'
+        charset: utf8mb4
+        server_version: '5.7'
+        driver: pdo_mysql
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
